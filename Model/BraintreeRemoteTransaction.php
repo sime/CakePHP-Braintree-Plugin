@@ -23,54 +23,53 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-class BraintreeRemoteTransaction extends BraintreeAppModel {
-
+class BraintreeRemoteTransaction extends BraintreeAppModel
+{
 /**
  * Name of model
  *
  * @var string
  */
-	public $name = 'BraintreeRemoteTransaction';
-	
+    public $name = 'BraintreeRemoteTransaction';
+
 /**
  * Schema
  *
  * @var array
  */
-	public $_schema = array(
-		'id' => array('type' => 'string', 'length' => '36'),
-		'customer_id' => array('type' => 'string', 'length' => '36'),
-		'payment_method_token' => array('type' => 'string', 'length' => '36'),
-		'braintree_transaction_id' => array('type' => 'string', 'length' => '36'),
-		'type' => array('type' => 'string', 'length' => '16'),
-		'amount' => array('type' => 'float', 'length' => '10'),
-		'status' => array('type' => 'string', 'length' => '32')
-	);
+    public $_schema = array(
+        'id' => array('type' => 'string', 'length' => '36'),
+        'customer_id' => array('type' => 'string', 'length' => '36'),
+        'payment_method_token' => array('type' => 'string', 'length' => '36'),
+        'braintree_transaction_id' => array('type' => 'string', 'length' => '36'),
+        'type' => array('type' => 'string', 'length' => '16'),
+        'amount' => array('type' => 'float', 'length' => '10'),
+        'status' => array('type' => 'string', 'length' => '32')
+    );
 
 /**
  * useTable
  *
  * @var string
  */
-	public $useTable = false;
-	
+    public $useTable = false;
+
 /**
  * Name of datasource config to use
  *
  * @var string
  */
-	public $useDbConfig = 'braintree';
-	
+    public $useDbConfig = 'braintree';
+
 /**
  * Construct
  *
  * @return	void
  */
-	public function __construct () {
-		
-		return parent::__construct();
-		
-	}
-	
+    public function __construct ()
+    {
+        return parent::__construct();
+
+    }
+
 }
-?>

@@ -23,15 +23,15 @@
  * @package    braintree
  * @subpackage braintree.models.datasources
  */
-class BraintreeSource extends DataSource {
-
+class BraintreeSource extends DataSource
+{
 /**
  * The description of this data source
  *
  * @var string
  */
     public $description = 'Braintree DataSource';
-    
+
 /**
  * Generates errors as a result of a read() attempt
  *
@@ -41,8 +41,8 @@ class BraintreeSource extends DataSource {
  *                              - 'is_count' bool - Whether or not the current query is attempting a COUNT()
  * @return  bool
  */
-    private function _readErrors (&$model, $queryData = array(), $options=array()) {
-        
+    private function _readErrors (&$model, $queryData = array(), $options=array())
+    {
         extract($queryData);
         extract(array_merge(
             array(
@@ -50,62 +50,69 @@ class BraintreeSource extends DataSource {
             ),
             $options
         ));
-        
+
         if (!empty($conditions) && !is_array($conditions)) {
             $this->showError(__('Conditions must be in array format', true));
+
             return false;
         }
-        
+
         if (
             (
-                !empty($conditions) && 
+                !empty($conditions) &&
                 count($conditions) > 1
-            ) || 
+            ) ||
             (
-                !empty($conditions) && 
-                count($conditions == 1) && 
+                !empty($conditions) &&
+                count($conditions == 1) &&
                 empty($conditions[$model->alias . '.' . $model->primaryKey])
             )
         ) {
             $this->showError(__('The only supported condition is ' . $model->alias . '.' . $model->primaryKey, true));
+
             return false;
         }
-        
+
         if (
-            !empty($conditions) && 
+            !empty($conditions) &&
             $limit > 1
         ) {
             $this->showError(__('Conditions cannot be used to search all customers', true));
+
             return false;
         }
-        
+
         if (
-            !empty($fields) && 
+            !empty($fields) &&
             !$is_count
         ) {
             $this->showError(__('Fields are not supported', true));
+
             return false;
         }
-        
+
         if (!empty($joins)) {
             $this->showError(__('Joins are not supported', true));
+
             return false;
         }
-        
+
         if ($limit > 1 || $page > 1 || !empty($offset)) {
             $this->showError(__('Pagination is not supported', true));
+
             return false;
         }
-        
+
         if (!empty($group)) {
             $this->showError(__('Group is not supported', true));
+
             return false;
         }
-        
+
         return true;
-        
+
     }
-    
+
 /**
  * Properly formats an array of information to be saved to Braintree's API
  *
@@ -113,17 +120,17 @@ class BraintreeSource extends DataSource {
  * @param   array   $values
  * @return  array
  */
-    private function _createSaveArray ($fields, $values) {
-        
+    private function _createSaveArray ($fields, $values)
+    {
         $return = array();
         foreach ($fields as $key => $field) {
             $return[Inflector::variable($field)] = isset($values[$key]) ? $values[$key] : '';
         }
-        
+
         return $return;
-        
+
     }
-    
+
 /**
  * Get the 'entity' of the model implementing this DataSource
  * For example, if BraintreeRemoteTransaction is implementing this DataSource, the entity is Transaction
@@ -131,12 +138,12 @@ class BraintreeSource extends DataSource {
  * @param   object  $model
  * @return  string
  */
-    private function _getModelEntity (&$model) {
-        
+    private function _getModelEntity (&$model)
+    {
         return str_replace(array('BraintreeRemote'), '', $model->name);
-        
+
     }
-    
+
 /**
  * Check to ensure a transaction ID is valid and matches the type specified, if applicable
  *
@@ -146,10 +153,10 @@ class BraintreeSource extends DataSource {
  *                  type                string  Options: sale, credit, authorization, or NULL (any)
  *                  not_found_msg       string
  *                  type_mismatch_msg   string
- * @return  bool    
+ * @return  bool
  */
-    private function _checkTransaction (&$model, $braintree_transaction_id=0, $options=array()) {
-        
+    private function _checkTransaction (&$model, $braintree_transaction_id=0, $options=array())
+    {
         $options = array_merge(
             array(
                 'type' => null,
@@ -159,7 +166,7 @@ class BraintreeSource extends DataSource {
             $options
         );
         extract($options);
-        
+
         $transaction = $this->read($model, array(
             'conditions' => array(
                 $model->alias . '.' . $model->primaryKey => $braintree_transaction_id
@@ -167,17 +174,19 @@ class BraintreeSource extends DataSource {
         ));
         if (empty($transaction)) {
             $this->showError($not_found_msg);
+
             return false;
         }
         if (!is_null($type) && $transaction[0][$model->alias]['type'] !== $type) {
             $this->showError($type_mismatch_msg);
+
             return false;
         }
-        
+
         return true;
-        
+
     }
-    
+
 /**
  * Get list of IDs that should be deleted based on conditions
  *
@@ -185,19 +194,20 @@ class BraintreeSource extends DataSource {
  * @param   array   $conditions
  * @return  mixed   Array if IDs can be found, false if there is an error
  */
-    protected function _getIdsToBeDeleted (&$model, $conditions=array()) {
-        
+    protected function _getIdsToBeDeleted (&$model, $conditions=array())
+    {
         if (empty($conditions) && !empty($model->id)) {
             $conditions = array($model->alias . '.' . $model->primaryKey => $model->id);
         }
-        
+
         if (empty($conditions)) {
             $this->showError(__($model->alias . '.' . $model->primaryKey . ' must be set in order to delete', true));
+
             return false;
         }
-        
+
         if (
-            count($conditions) == 1 && 
+            count($conditions) == 1 &&
             key($conditions) == $model->alias . '.' . $model->primaryKey
         ) {
             $ids = array_shift($conditions);
@@ -207,13 +217,13 @@ class BraintreeSource extends DataSource {
                 'conditions' => $conditions
             )));
         }
-        
+
         if (!is_array($ids)) {
             $ids = array($ids);
         }
-        
+
         return $ids;
-        
+
     }
 
 /**
@@ -224,10 +234,10 @@ class BraintreeSource extends DataSource {
  * @param   array   $values
  * @return  bool
  */
-    public function create(Model $model, $fields = null, $values = null) {
-        
+    public function create(Model $model, $fields = null, $values = null)
+    {
         $to_save = $this->_createSaveArray($fields, $values);
-        
+
         if (!empty($model->id) && empty($return[$model->primaryKey])) {
             $to_save = array_merge(
                 array(
@@ -236,15 +246,16 @@ class BraintreeSource extends DataSource {
                 $to_save
             );
         }
-        
+
         $entity = $this->_getModelEntity($model);
-        
+
         try {
             switch ($entity) {
                 case 'Customer':
                     $result = Braintree_Customer::create($to_save);
                     if (!$result->success) {
                         $this->showError($result->message);
+
                         return false;
                     }
                     $id = $result->customer->id;
@@ -252,11 +263,12 @@ class BraintreeSource extends DataSource {
                 case 'Transaction':
                     unset($to_save['id']);
                     if (
-                        !empty($to_save['type']) && 
+                        !empty($to_save['type']) &&
                         $to_save['type'] == 'credit'
                     ) {
                         if (empty($to_save['braintreeTransactionId'])) {
                             $this->showError(__('A refundable transaction ID must be provided.', true));
+
                             return false;
                         }
                         $transaction_valid = $this->_checkTransaction(
@@ -275,9 +287,9 @@ class BraintreeSource extends DataSource {
                         $braintree_transaction_id = isset($exploded[1]) ? $exploded[1] : $to_save['braintreeTransactionId'];
                         $result = Braintree_Transaction::refund($braintree_transaction_id, $to_save['amount']);
                     } elseif (
-                        !empty($to_save['type']) && 
+                        !empty($to_save['type']) &&
                         $to_save['type'] == 'authorization'
-                    ) { 
+                    ) {
                         unset(
                             $to_save['type'],
                             $to_save['braintreeTransactionId']
@@ -306,6 +318,7 @@ class BraintreeSource extends DataSource {
                     }
                     if (!$result->success) {
                         $this->showError($result->message);
+
                         return false;
                     }
                     $id = $result->transaction->id;
@@ -322,16 +335,17 @@ class BraintreeSource extends DataSource {
             }
         } catch (Exception $e) {
             $this->showError(print_r($e, true));
+
             return false;
         }
-        
+
         $model->setInsertID($id);
         $model->id = $id;
-        
+
         return true;
-        
+
     }
-    
+
 /**
  * Updates an existing record via the API
  *
@@ -340,21 +354,21 @@ class BraintreeSource extends DataSource {
  * @param   array   $values
  * @return  bool
  */
-    public function update(Model $model, $fields = null, $values = null, $conditions = null) {
-        
+    public function update(Model $model, $fields = null, $values = null, $conditions = null)
+    {
         $to_save = $this->_createSaveArray($fields, $values);
-        
+
         if (!empty($to_save['id'])) {
             $model->id = $to_save['id'];
             unset($to_save['id']);
         }
-        
+
         if (empty($model->id)) {
             false;
         }
-        
+
         $entity = $this->_getModelEntity($model);
-        
+
         try {
             switch ($entity) {
                 case 'Customer':
@@ -377,16 +391,19 @@ class BraintreeSource extends DataSource {
                             $transaction[0][$model->alias]['status'] != 'submitted_for_settlement'
                         ) {
                             $this->showError(__('A transaction can only be VOIDED when the status is AUTHORIZED or SUBMITTED FOR SETTLEMENT.', true));
+
                             return false;
                         }
                         $result = Braintree_Transaction::void($braintree_transaction_id);
                         if (!$result->success) {
                             $this->showError($result->message);
+
                             return false;
                         }
                     } elseif (!empty($to_save['status']) && $to_save['status'] == 'submitted_for_settlement') {
                         if ($transaction[0][$model->alias]['status'] != 'authorized') {
                             $this->showError(__('A transaction can only be SUBMITTED FOR SETTLEMENT when the status is AUTHORIZED.', true));
+
                             return false;
                         }
                         if (!empty($to_save['amount'])) {
@@ -396,10 +413,12 @@ class BraintreeSource extends DataSource {
                         }
                         if (!$result->success) {
                             $this->showError($result->message);
+
                             return false;
                         }
                     } else {
                         $this->showError(__('The only update that can be made to a transaction is a VOID.', true));
+
                         return false;
                     }
                     break;
@@ -415,17 +434,18 @@ class BraintreeSource extends DataSource {
             }
         } catch (Exception $e) {
             $this->showError(print_r($e, true));
+
             return false;
         }
-        
+
         $success = $result->success;
-        
+
         if (!$success) {
             return false;
         }
-        
+
         return $success;
-        
+
     }
 
 /**
@@ -435,8 +455,8 @@ class BraintreeSource extends DataSource {
  * @param   array   $queryData
  * @return  array
  */
-    public function read (Model $model, $queryData = array(), $recursive = NULL) {
-        
+    public function read (Model $model, $queryData = array(), $recursive = NULL)
+    {
         $queryData = array_merge(
             array(
                 'conditions' => null,
@@ -453,32 +473,32 @@ class BraintreeSource extends DataSource {
             ),
             $queryData
         );
-        
+
         extract($queryData);
-        
+
         if (!empty($fields) && is_string($fields) && $fields == 'count') {
             $is_count = true;
         } else {
             $is_count = false;
         }
-        
+
         if (!$this->_readErrors($model, $queryData, array('is_count' => $is_count))) {
             return false;
         }
-        
+
         if (
-            !empty($conditions[$model->alias . '.' . $model->primaryKey]) && 
+            !empty($conditions[$model->alias . '.' . $model->primaryKey]) &&
             (
-                $limit == 1 || 
+                $limit == 1 ||
                 (
-                    empty($limit) && 
+                    empty($limit) &&
                     $is_count
                 )
             )
         ) {
-            
+
             $entity = $this->_getModelEntity($model);
-            
+
             try {
                 switch ($entity) {
                     case 'Customer':
@@ -585,7 +605,7 @@ class BraintreeSource extends DataSource {
             } catch (Exception $e) {
                 $result = false;
             }
-            
+
             if ($is_count) {
                 return array(
                     0 => array(
@@ -595,16 +615,17 @@ class BraintreeSource extends DataSource {
                     )
                 );
             }
-            
+
             return $result;
-            
+
         }
-        
+
         if (empty($conditions)) {
             try {
                 $all_customers = Braintree_Customer::all();
             } catch (Exception $e) {
                 $this->showError(print_r($e, true));
+
                 return array();
             }
             $return = array();
@@ -613,11 +634,12 @@ class BraintreeSource extends DataSource {
                 $return[$count][$model->alias]['id'] = $id;
                 $count++;
             }
+
             return $return;
         }
-        
+
     }
-    
+
 /**
  * Deletes a record via the API
  *
@@ -625,16 +647,16 @@ class BraintreeSource extends DataSource {
  * @param   mixed   $conditions
  * @return  bool
  */
-    public function delete (Model $model, $conditions = null) {
-        
+    public function delete (Model $model, $conditions = null)
+    {
         $ids = $this->_getIdsToBeDeleted($model, $conditions);
-        
+
         if ($ids === false) {
             return false;
         }
-        
+
         $entity = $this->_getModelEntity($model);
-        
+
         if (!empty($ids)) {
             foreach ($ids as $id) {
                 try {
@@ -644,6 +666,7 @@ class BraintreeSource extends DataSource {
                             break;
                         case 'Transaction':
                             $this->showError(__('Transactions cannot be deleted', true));
+
                             return false;
                             break;
                         case 'CreditCard':
@@ -663,40 +686,41 @@ class BraintreeSource extends DataSource {
                     }
                 } catch (Exception $e) {
                     $this->showError(print_r($e, true));
+
                     return false;
                 }
             }
         }
-        
+
         return true;
-        
+
     }
-    
+
 /**
  * An overwrite of the calculate() method to get it to play nice with an API-based DataSource
  *
  * @param   object  $model
  * @return  string
  */
-    public function calculate(&$model) {
+    public function calculate(&$model)
+    {
         return 'count';
     }
-    
+
 /**
  * Shows errors based on debug level
  *
  * @param   object  $model
  * @return  string
  */
-    public function showError($error) {
-        
+    public function showError($error)
+    {
         if (Configure::read('debug') > 0) {
             trigger_error($error, E_USER_WARNING);
         } else {
             $this->log($error);
         }
-        
+
     }
 
 }
-?>

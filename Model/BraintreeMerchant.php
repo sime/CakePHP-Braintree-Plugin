@@ -23,53 +23,52 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-class BraintreeMerchant extends BraintreeAppModel {
-
+class BraintreeMerchant extends BraintreeAppModel
+{
 /**
  * Name of model
  *
  * @var string
  */
-	public $name = 'BraintreeMerchant';
-	
+    public $name = 'BraintreeMerchant';
+
 /**
  * belongsTo associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'BraintreeAddress' => array(
-			'className'=> 'Braintree.BraintreeAddress',
-			'foreignKey' => 'braintree_merchant_id',
-			'dependent' => false
-		),
-		'BraintreeCreditCard' => array(
-			'className' => 'Braintree.BraintreeCreditCard',
-			'foreignKey' => 'braintree_merchant_id',
-			'dependent' => false
-		),
-		'BraintreeCustomer' => array(
-			'className' => 'Braintree.BraintreeCustomer',
-			'foreignKey' => 'braintree_merchant_id',
-			'dependent' => false
-		),
-		'BraintreeTransaction' => array(
-			'className' => 'Braintree.BraintreeTransaction',
-			'foreignKey' => 'braintree_merchant_id',
-			'dependent' => false
-		)
-	);
-	
+    public $hasMany = array(
+        'BraintreeAddress' => array(
+            'className'=> 'Braintree.BraintreeAddress',
+            'foreignKey' => 'braintree_merchant_id',
+            'dependent' => false
+        ),
+        'BraintreeCreditCard' => array(
+            'className' => 'Braintree.BraintreeCreditCard',
+            'foreignKey' => 'braintree_merchant_id',
+            'dependent' => false
+        ),
+        'BraintreeCustomer' => array(
+            'className' => 'Braintree.BraintreeCustomer',
+            'foreignKey' => 'braintree_merchant_id',
+            'dependent' => false
+        ),
+        'BraintreeTransaction' => array(
+            'className' => 'Braintree.BraintreeTransaction',
+            'foreignKey' => 'braintree_merchant_id',
+            'dependent' => false
+        )
+    );
+
 /**
  * Construct
  *
  * @return	void
  */
-	public function __construct () {
-		
-		return parent::__construct();
-		
-	}
-	
+    public function __construct ()
+    {
+        return parent::__construct();
+
+    }
+
 }
-?>

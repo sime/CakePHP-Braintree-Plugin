@@ -23,61 +23,60 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-class BraintreeRemoteAddress extends BraintreeAppModel {
-
+class BraintreeRemoteAddress extends BraintreeAppModel
+{
 /**
  * Name of model
  *
  * @var string
  */
-	public $name = 'BraintreeRemoteAddress';
-	
+    public $name = 'BraintreeRemoteAddress';
+
 /**
  * Schema
  *
  * @var array
  */
-	public $_schema = array(
-		'id' => array('type' => 'string', 'length' => '36'),
-		'customer_id' => array('type' => 'string', 'length' => '36'),
-		'first_name' => array('type' => 'string', 'length' => '255'),
-		'last_name' => array('type' => 'string', 'length' => '255'),
-		'company' => array('type' => 'string', 'length' => '255'),
-		'street_address' => array('type' => 'string', 'length' => '255'),
-		'extended_address' => array('type' => 'string', 'length' => '255'),
-		'locality' => array('type' => 'string', 'length' => '255'),
-		'region' => array('type' => 'string', 'length' => '255'),
-		'postal_code' => array('type' => 'string', 'length' => '255'),
-		'country_code_alpha_2' => array('type' => 'string', 'length' => '2'),
-		'country_code_alpha_3' => array('type' => 'string', 'length' => '3'),
-		'country_code_numeric' => array('type' => 'integer', 'length' => '5'),
-		'country_name' => array('type' => 'string', 'length' => '255')
-	);
+    public $_schema = array(
+        'id' => array('type' => 'string', 'length' => '36'),
+        'customer_id' => array('type' => 'string', 'length' => '36'),
+        'first_name' => array('type' => 'string', 'length' => '255'),
+        'last_name' => array('type' => 'string', 'length' => '255'),
+        'company' => array('type' => 'string', 'length' => '255'),
+        'street_address' => array('type' => 'string', 'length' => '255'),
+        'extended_address' => array('type' => 'string', 'length' => '255'),
+        'locality' => array('type' => 'string', 'length' => '255'),
+        'region' => array('type' => 'string', 'length' => '255'),
+        'postal_code' => array('type' => 'string', 'length' => '255'),
+        'country_code_alpha_2' => array('type' => 'string', 'length' => '2'),
+        'country_code_alpha_3' => array('type' => 'string', 'length' => '3'),
+        'country_code_numeric' => array('type' => 'integer', 'length' => '5'),
+        'country_name' => array('type' => 'string', 'length' => '255')
+    );
 
 /**
  * useTable
  *
  * @var string
  */
-	var $useTable = false;
-	
+    public $useTable = false;
+
 /**
  * Name of datasource config to use
  *
  * @var string
  */
-	var $useDbConfig = 'braintree';
-	
+    public $useDbConfig = 'braintree';
+
 /**
  * Construct
  *
  * @return	void
  */
-	public function __construct () {
-		
-		return parent::__construct();
-		
-	}
-	
+    public function __construct ()
+    {
+        return parent::__construct();
+
+    }
+
 }
-?>

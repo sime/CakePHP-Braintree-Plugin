@@ -24,45 +24,45 @@
  * @subpackage braintree.controllers
  */
 App::import('Vendor', 'Braintree.Braintree');
-class PagesController extends BraintreeAppController {
-
+class PagesController extends BraintreeAppController
+{
 /**
  * Name
  *
  * @var string
  */
-	public $name = 'Pages';
-	
+    public $name = 'Pages';
+
 /**
  * Uses
  *
  * @var array
  */
-	public $uses = array();
-	
+    public $uses = array();
+
 /**
  * Helpers
  *
  * @var array
  */
-	public $helpers = array();
-	
+    public $helpers = array();
+
 /**
  * Components
  *
  * @var array
  */
-	public $components = array();
+    public $components = array();
 
 /**
  * beforeFilter
  *
  * @return	void
  */
-	public function beforeFilter () {
-		
+    public function beforeFilter ()
+    {
         parent::beforeFilter();
-        
+
     }
 
 /**
@@ -70,13 +70,12 @@ class PagesController extends BraintreeAppController {
  *
  * @return	void
  */
-    public function cvv_helper () {
-    	
-    	$this->set('title_for_layout', __('CVV/CID', true));
-    	
-    	$this->layout = 'braintree_popup';
-    	
+    public function cvv_helper ()
+    {
+        $this->set('title_for_layout', __('CVV/CID', true));
+
+        $this->layout = 'braintree_popup';
+
     }
 
 }
-?>

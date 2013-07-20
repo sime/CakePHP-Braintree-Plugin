@@ -23,8 +23,8 @@
  * @package    braintree
  * @subpackage braintree.views.helpers
  */
-class BraintreeTransparentRedirectHelper extends AppHelper {
-
+class BraintreeTransparentRedirectHelper extends AppHelper
+{
     public function url($url = NULL, $full = false)
     {
         return Braintree_TransparentRedirect::url();
@@ -35,4 +35,3 @@ class BraintreeTransparentRedirectHelper extends AppHelper {
         return Braintree_TransparentRedirect::createCreditCardData($params);
     }
 }
-?>

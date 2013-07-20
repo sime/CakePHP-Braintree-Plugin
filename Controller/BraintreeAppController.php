@@ -23,7 +23,6 @@
  * @package    braintree
  * @subpackage braintree.controllers
  */
-class BraintreeAppController extends AppController {
-
+class BraintreeAppController extends AppController
+{
 }
-?>

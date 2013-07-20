@@ -23,55 +23,54 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-class BraintreeRemoteCustomer extends BraintreeAppModel {
-
+class BraintreeRemoteCustomer extends BraintreeAppModel
+{
 /**
  * Name of model
  *
  * @var string
  */
-	public $name = 'BraintreeRemoteCustomer';
-	
+    public $name = 'BraintreeRemoteCustomer';
+
 /**
  * Schema
  *
  * @var array
  */
-	public $_schema = array(
-		'id' => array('type' => 'string', 'length' => '36'),
-		'first_name' => array('type' => 'string', 'length' => '255'),
-		'last_name' => array('type' => 'string', 'length' => '255'),
-		'company' => array('type' => 'string', 'length' => '255'),
-		'email' => array('type' => 'string', 'length' => '255'),
-		'phone' => array('type' => 'string', 'length' => '255'),
-		'fax' => array('type' => 'string', 'length' => '255'),
-		'website' => array('type' => 'string', 'length' => '255')
-	);
+    public $_schema = array(
+        'id' => array('type' => 'string', 'length' => '36'),
+        'first_name' => array('type' => 'string', 'length' => '255'),
+        'last_name' => array('type' => 'string', 'length' => '255'),
+        'company' => array('type' => 'string', 'length' => '255'),
+        'email' => array('type' => 'string', 'length' => '255'),
+        'phone' => array('type' => 'string', 'length' => '255'),
+        'fax' => array('type' => 'string', 'length' => '255'),
+        'website' => array('type' => 'string', 'length' => '255')
+    );
 
 /**
  * useTable
  *
  * @var string
  */
-	public $useTable = false;
-	
+    public $useTable = false;
+
 /**
  * Name of datasource config to use
  *
  * @var string
  */
-	public $useDbConfig = 'braintree';
-	
+    public $useDbConfig = 'braintree';
+
 /**
  * Construct
  *
  * @return	void
  */
-	public function __construct () {
-		
-		return parent::__construct();
-		
-	}
-	
+    public function __construct ()
+    {
+        return parent::__construct();
+
+    }
+
 }
-?>

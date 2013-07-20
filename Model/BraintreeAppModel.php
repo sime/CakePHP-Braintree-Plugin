@@ -24,8 +24,8 @@
  * @subpackage braintree.models
  */
 
-class BraintreeAppModel extends AppModel {
-	
+class BraintreeAppModel extends AppModel
+{
 /**
  * Adds the datasource to the connection manager if it's not already there,
  * which it won't be if you've not added it to your app/config/database.php
@@ -36,93 +36,92 @@ class BraintreeAppModel extends AppModel {
  * @param 	$ds
  * @return	void
  */
-	public function __construct ($id = false, $table = null, $ds = null) {
+    public function __construct ($id = false, $table = null, $ds = null)
+    {
+        $sources = ConnectionManager::sourceList();
 
-		$sources = ConnectionManager::sourceList();
-		
-		if (!in_array('braintree', $sources)) {
-			ConnectionManager::create('braintree', array('datasource' => 'Braintree.BraintreeSource'));
-		}
-		
-		parent::__construct($id, $table, $ds);
+        if (!in_array('braintree', $sources)) {
+            ConnectionManager::create('braintree', array('datasource' => 'Braintree.BraintreeSource'));
+        }
+
+        parent::__construct($id, $table, $ds);
 
   }
-	
+
 /**
  * beforeSave
  *
  * @return	bool
  */
-	public function beforeSave ($options = []) {
-		
-		if (!parent::beforeSave()) {
-			return false;
-		}
-		
-		return true;
-		
-	}
-	
+    public function beforeSave ($options = [])
+    {
+        if (!parent::beforeSave()) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 /**
  * beforeDelete
  *
  * @param	bool	$cascade
  * @return	bool
  */
-	public function beforeDelete ($cascade = true) {
-		
-		if (!parent::beforeDelete($cascade)) {
-			return false;
-		}
-		
-		return true;
-		
-	}
-	
+    public function beforeDelete ($cascade = true)
+    {
+        if (!parent::beforeDelete($cascade)) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 /**
  * afterDelete
  *
  * @return	bool
  */
-	public function afterDelete () {
-		
-		if (!parent::afterDelete()) {
-			return false;
-		}
-		
-		return true;
-		
-	}
-	
+    public function afterDelete ()
+    {
+        if (!parent::afterDelete()) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 /**
  * Trims and uppercases a string
  *
  * @param	string	$string
  * @return	string
  */
-	public function standardizeString ($string) {
-		
-		return strtoupper(trim($string));
-		
-	}
-	
+    public function standardizeString ($string)
+    {
+        return strtoupper(trim($string));
+
+    }
+
 /**
  * Get options array for a field
  *
  * @param	string	$string
  * @return	array
  */
-	public function getOptions ($field) {
-		
-		$name = '_' . $field . '_options';
-		
-		if (isset($this->{$name})) {
-			return $this->{$name};
-		} else {
-			return array();
-		}
-		
-	}
-	
+    public function getOptions ($field)
+    {
+        $name = '_' . $field . '_options';
+
+        if (isset($this->{$name})) {
+            return $this->{$name};
+        } else {
+            return array();
+        }
+
+    }
+
 }
-?>

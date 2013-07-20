@@ -23,37 +23,36 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-class BraintreeCreditCardRelation extends BraintreeAppModel {
-
+class BraintreeCreditCardRelation extends BraintreeAppModel
+{
 /**
  * Name of model
  *
  * @var string
  */
-	public $name = 'BraintreeCreditCardRelation';
-	
+    public $name = 'BraintreeCreditCardRelation';
+
 /**
  * belongsTo associations
  *
  * @var array
  */
-	var $belongsTo = array(
-		'BraintreeCreditCard' => array(
-			'className' => 'Braintree.BraintreeCreditCard',
-			'foreignKey' => 'braintree_credit_card_id'
-		)
-	);
-	
+    public $belongsTo = array(
+        'BraintreeCreditCard' => array(
+            'className' => 'Braintree.BraintreeCreditCard',
+            'foreignKey' => 'braintree_credit_card_id'
+        )
+    );
+
 /**
  * Construct
  *
  * @return	void
  */
-	public function __construct () {
-		
-		return parent::__construct();
-		
-	}
-	
+    public function __construct ()
+    {
+        return parent::__construct();
+
+    }
+
 }
-?>
