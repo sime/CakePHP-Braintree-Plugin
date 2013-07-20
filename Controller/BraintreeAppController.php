@@ -23,7 +23,7 @@
  * @package    braintree
  * @subpackage braintree.controllers
  */
-App::import('Vendor', 'Braintree.Braintree');
 class BraintreeAppController extends AppController {
+
 }
 ?>
