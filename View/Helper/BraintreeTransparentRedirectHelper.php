@@ -23,23 +23,16 @@
  * @package    braintree
  * @subpackage braintree.views.helpers
  */
-App::import('Vendor', 'Braintree.Braintree');
-class BraintreeTransparentRedirectHelper extends Braintree_TransparentRedirect {
-	
-/**
- * Helpers
- *
- * @var array
- */
-	public $helpers = array();
-	
-/**
- * Construct
- *
- * @return	void
- */
-	public function __construct () {
-	}
-	
+class BraintreeTransparentRedirectHelper extends AppHelper {
+
+    public function url($url = NULL, $full = false)
+    {
+        return Braintree_TransparentRedirect::url();
+    }
+
+    public function createCreditCardData($params)
+    {
+        return Braintree_TransparentRedirect::createCreditCardData($params);
+    }
 }
 ?>
