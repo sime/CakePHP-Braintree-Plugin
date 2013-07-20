@@ -52,11 +52,6 @@ class BraintreeCreditCard extends BraintreeLocalAppModel {
 				'last' => true,
 				'message' => 'Braintree Customer ID cannot be left blank.'
 			),
-			'between' => array(
-				'rule' => array('between', 36, 36),
-				'last' => true,
-				'message' => 'Braintree Customer ID must be 36 characters.'
-			)
 		),
 		'cardholder_name' => array (
 			'notEmpty' => array(
@@ -174,7 +169,7 @@ class BraintreeCreditCard extends BraintreeLocalAppModel {
  * 
  * @return	bool
  */
-	public function beforeSave () {
+	public function beforeSave ($options = []) {
 		
 		if ($this->remote_sync) {
 			$temp_data = $this->data;

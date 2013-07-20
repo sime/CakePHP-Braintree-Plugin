@@ -110,7 +110,7 @@ class BraintreeLocalAppModel extends BraintreeAppModel {
  *
  * @return	bool
  */
-	public function beforeSave () {
+	public function beforeSave ($options = []) {
 		
 		if (empty($this->id) && $this->autoPK) {
 			$uuid = String::uuid();
@@ -158,7 +158,7 @@ class BraintreeLocalAppModel extends BraintreeAppModel {
 		
 		if (!empty($this->_schema['braintree_merchant_id'])) {
 		
-			$merchantId = BraintreeConfig::get('merchantId');
+			$merchantId = Braintree_Configuration::merchantId();
 			
 			if (empty($merchantId)) {
 				return false;

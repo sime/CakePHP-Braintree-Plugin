@@ -23,7 +23,7 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-App::import('Braintree.BraintreeLocalAppModel');
+App::uses('BraintreeLocalAppModel', 'Braintree.Model');
 class BraintreeAddress extends BraintreeLocalAppModel {
 
 /**
@@ -45,11 +45,6 @@ class BraintreeAddress extends BraintreeLocalAppModel {
 				'last' => true,
 				'message' => 'Braintree Customer ID cannot be left blank.'
 			),
-			'between' => array(
-				'rule' => array('between', 36, 36),
-				'last' => true,
-				'message' => 'Braintree Customer ID must be 36 characters.'
-			)
 		),
 		'first_name' => array (
 			'notEmpty' => array(

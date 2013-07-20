@@ -23,7 +23,7 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-App::import('Vendor', 'Braintree.Braintree');
+
 class BraintreeAppModel extends AppModel {
 	
 /**
@@ -53,7 +53,7 @@ class BraintreeAppModel extends AppModel {
  *
  * @return	bool
  */
-	public function beforeSave () {
+	public function beforeSave ($options = []) {
 		
 		if (!parent::beforeSave()) {
 			return false;
