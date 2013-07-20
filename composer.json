@@ -1,6 +1,9 @@
 {
     "name": "sime/cakephp-braintree-plugin",
     "type": "cakephp-plugin",
+    "extra": {
+        "installer-name": "Braintree"
+    }
     "require": {
         "php": ">=5.4.0",
         "composer/installers": "*",
