@@ -22,14 +22,9 @@
  * @link       http://github.com/anthonyp/braintree
  */
 
-if (Configure::read('debug') > 0) {
-	Configure::write('Braintree.environment', 'sandbox');
-} else {
-	Configure::write('Braintree.environment', 'production');
-}
-
-Configure::write('Braintree.merchantId', true); // stub
-Configure::write('Braintree.publicKey', true); // stub
-Configure::write('Braintree.privateKey', true); // stub
+Braintree_Configuration::environment(Configure::read('Braintree.environment'));
+Braintree_Configuration::merchantId(Configure::read('Braintree.merchantId'));
+Braintree_Configuration::publicKey(Configure::read('Braintree.publicKey'));
+Braintree_Configuration::privateKey(Configure::read('Braintree.privateKey'));
 
 ?>
