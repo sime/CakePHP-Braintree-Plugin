@@ -1,0 +1,7 @@
+{
+    "name": "sime/cakephp-braintree-plugin",
+    "require": {
+        "php": ">=5.4.0",
+        "braintree/braintree_php": "2.21"
+    }
+}
