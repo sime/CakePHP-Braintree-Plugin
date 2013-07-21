@@ -23,7 +23,7 @@
  * @package    braintree
  * @subpackage braintree.models
  */
-App::import('Braintree.BraintreeLocalAppModel');
+App::uses('BraintreeLocalAppModel', 'Braintree.Model');
 class BraintreeTransaction extends BraintreeLocalAppModel
 {
 /**
